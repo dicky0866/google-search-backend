@@ -1,24 +1,19 @@
 export default async function handler(req, res) {
   const q = req.query.q;
-
   if (!q) {
     return res.status(400).json({ error: "Parameter q wajib ada" });
   }
 
   try {
-    const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(q)}&format=json&no_redirect=1&no_html=1`;
+    const url = `https://serpapi.com/search.json?q=${encodeURIComponent(q)}&engine=google&api_key=demo`;
 
-    const response = await fetch(url, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; CustomGPT/1.0)"
-      }
-    });
-
+    const response = await fetch(url);
     const data = await response.json();
+
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json({
-      error: "Gagal fetch DuckDuckGo",
+      error: "Gagal fetch SERPAPI",
       detail: err.message
     });
   }
