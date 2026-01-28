@@ -6,12 +6,17 @@ export default async function handler(req, res) {
   }
 
   try {
- const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(q)}&format=json&no_redirect=1&no_html=1`;
-    const response = await fetch(url);
-    const data = await response.json();
+    const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(q)}&format=json&no_redirect=1&no_html=1`;
 
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; CustomGPT/1.0)"
+      }
+    });
+
+    const data = await response.json();
     res.status(200).json(data);
   } catch (err) {
-    res.status(500).json({ error: "Gagal fetch DuckDuckGo" });
+    res.status(500).json({ error: "Gagal fetch DuckDuckGo", detail: err.message });
   }
 }
