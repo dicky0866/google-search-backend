@@ -6,7 +6,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(
+    const url =
+ `https://api.duckduckgo.com/?q=${encodeURIComponent(
       q
     )}&format=json&no_redirect=1&no_html=1`;
 
